@@ -9,8 +9,12 @@ Don't forget :
 - to set `http_proxy` (if you are behing proxy)
 - `go get github.com/jerome-laforge/go_ws`
 
+#If MySQL not install, download it with docker for example:
+    docker pull tutum/mysql
+    docker run -d -p 3306:3306 -e MYSQL_PASS="admin" tutum/mysql
 
 #Mysql script
+    mysql -uadmin -p"admin"
     create database todos;
 
     CREATE USER 'todos_rw'@'%' IDENTIFIED BY 'todos_rw';
