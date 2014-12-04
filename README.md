@@ -19,10 +19,10 @@ Don't forget :
 
 `use todos;`
 
-`create table todos (`
-    `id        mediumint not null auto_increment,`
-    `name      char(255),`
-    `completed boolean,`
-    `due       timestamp,`
-    `primary key (id)`
-`) engine=myisam;`
+::create table todos (
+    id        mediumint not null auto_increment,
+    name      char(255),
+    `completed boolean,
+    due       timestamp,
+    primary key (id)
+) engine=myisam;::
