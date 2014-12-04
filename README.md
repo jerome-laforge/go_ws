@@ -14,7 +14,7 @@ Don't forget :
     docker run -d -p 3306:3306 -e MYSQL_PASS="admin" tutum/mysql
 
 #Mysql script
-    mysql -uadmin -p"admin"
+mysql -uadmin -p"admin"
     create database todos;
 
     CREATE USER 'todos_rw'@'%' IDENTIFIED BY 'todos_rw';
