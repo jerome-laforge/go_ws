@@ -43,7 +43,7 @@ arm (a.k.a. ARM); 5g,5l,5c,5a : Supports Linux, FreeBSD and NetBSD binaries. Les
 - `GOOS=windows GOARCH=arm go install github.com/jerome-laforge/go_ws`
 
  
--	$GOOS 	$GOARCH
+$GOOS 	$GOARCH
 -	darwin 	386
 -	darwin 	amd64
 -	dragonfly 	386
