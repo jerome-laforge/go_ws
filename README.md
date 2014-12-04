@@ -27,7 +27,7 @@ Don't forget :
     create table todos (
         id        mediumint not null auto_increment,
         name      char(255),
-        `completed boolean,
+        completed boolean,
         due       timestamp,
         primary key (id)
     ) engine=myisam;
