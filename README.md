@@ -41,3 +41,26 @@ amd64 (a.k.a. x86-64); 6g,6l,6c,6a : A mature implementation. The compiler has a
  
 arm (a.k.a. ARM); 5g,5l,5c,5a : Supports Linux, FreeBSD and NetBSD binaries. Less widely used than the other ports. 
 - `GOOS=windows GOARCH=arm go install github.com/jerome-laforge/go_ws`
+
+ 
+-	$GOOS 	$GOARCH
+-	darwin 	386
+-	darwin 	amd64
+-	dragonfly 	386
+-	dragonfly 	amd64
+-	freebsd 	386
+-	freebsd 	amd64
+-	freebsd 	arm
+-	linux 	386
+-	linux 	amd64
+-	linux 	arm
+-	netbsd 	386
+-	netbsd 	amd64
+-	netbsd 	arm
+-	openbsd 	386
+-	openbsd 	amd64
+-	plan9 	386
+-	plan9 	amd64
+-	solaris 	amd64
+-	windows 	386
+-	windows 	amd64
