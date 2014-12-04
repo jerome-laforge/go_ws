@@ -10,21 +10,20 @@ Don't forget :
 - `go get github.com/jerome-laforge/go_ws`
 
 
-#Mysql script
-`create database todos;`
+#Mysql script::
+    create database todos;
 
-`CREATE USER 'todos_rw'@'%' IDENTIFIED BY 'todos_rw';`
-`flush privileges;`
-`GRANT ALL PRIVILEGES ON todos.* TO 'todos_rw' WITH GRANT OPTION;`
+    CREATE USER 'todos_rw'@'%' IDENTIFIED BY 'todos_rw';
+    flush privileges;
+    GRANT ALL PRIVILEGES ON todos.* TO 'todos_rw' WITH GRANT OPTION;
 
-`use todos;`
+    use todos;
 
-::
-create table todos (
-    id        mediumint not null auto_increment,
-    name      char(255),
-    `completed boolean,
-    due       timestamp,
-    primary key (id)
-) engine=myisam;
-::
+    create table todos (
+        id        mediumint not null auto_increment,
+        name      char(255),
+        `completed boolean,
+        due       timestamp,
+        primary key (id)
+    ) engine=myisam;
+
