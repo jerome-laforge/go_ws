@@ -14,7 +14,7 @@ Don't forget :
     docker run -d -p 3306:3306 -e MYSQL_PASS="admin" tutum/mysql
 
 #Mysql script
-`mysql -uadmin -p"admin" -h127.0.0.1 -P3306`       (or get password with `docker logs <contener_id>`)
+`mysql -uadmin -p"admin" -h127.0.0.1 -P3306` (or get password with `docker logs <contener_id>`)
 
     create database todos;
 
