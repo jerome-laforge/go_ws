@@ -10,7 +10,7 @@ Don't forget :
 - `go get github.com/jerome-laforge/go_ws`
 
 
-#Mysql script::
+#Mysql script
     create database todos;
 
     CREATE USER 'todos_rw'@'%' IDENTIFIED BY 'todos_rw';
