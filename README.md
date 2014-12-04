@@ -15,6 +15,7 @@ Don't forget :
 
 #Mysql script
 mysql -uadmin -p"admin"
+
     create database todos;
 
     CREATE USER 'todos_rw'@'%' IDENTIFIED BY 'todos_rw';
