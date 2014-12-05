@@ -6,6 +6,7 @@ import (
 	"github.com/jerome-laforge/go_ws/dto"
 	"os"
 	"time"
+	"fmt"
 )
 
 var host = "127.0.0.1"
@@ -17,19 +18,24 @@ var db = "todos"
 var dbUrl string
 
 func init() {
-	if tmp := os.Getenv("MYSQL_HOST"); len(tmp) > 0 {
+	if tmp := os.Getenv("_MYSQL_HOST"); len(tmp) > 0 {
 		host = tmp
+	} else if tmp = os.Getenv("_ENV_MYSQL_HOST"); len(tmp) > 0 && len(os.Getenv(tmp)) > 0 {
+		host = os.Getenv(tmp)
 	}
-	if tmp := os.Getenv("MYSQL_PORT"); len(tmp) > 0 {
+	if tmp := os.Getenv("_MYSQL_PORT"); len(tmp) > 0 {
 		port = tmp
+	} else if tmp = os.Getenv("_ENV_MYSQL_PORT"); len(tmp) > 0 && len(os.Getenv(tmp)) > 0 {
+		port = os.Getenv(tmp)
 	}
-	if tmp := os.Getenv("MYSQL_LOGIN"); len(tmp) > 0 {
+	if tmp := os.Getenv("_MYSQL_LOGIN"); len(tmp) > 0 {
 		login = tmp
 	}
-	if tmp := os.Getenv("MYSQL_PASSWD"); len(tmp) > 0 {
+	if tmp := os.Getenv("_MYSQL_PASSWD"); len(tmp) > 0 {
 		passwd = tmp
 	}
 	dbUrl = login + ":" + passwd + "@tcp(" + host + ":" + port + ")/" + db + "?parseTime=true"
+	fmt.Println(dbUrl)
 }
 
 func RepoGetTodos() dto.Todos {
