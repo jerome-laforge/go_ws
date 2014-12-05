@@ -10,11 +10,11 @@ Do steps below :
 - `go get github.com/jerome-laforge/go_ws`
 
 #If MySQL not install, download it with docker for example:
-    docker pull tutum/mysql
-    docker run -d -p 3306:3306 -e MYSQL_PASS="admin" tutum/mysql
+    docker pull mysql
+    docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=mysecretpassword -d mysql
 
 #Mysql script
-`mysql -uadmin -p"admin" -h127.0.0.1 -P3306` (or get password with `docker logs <contener_id>`)
+`docker run -it --link some-mysql:mysql --rm mysql sh -c 'exec mysql -h"$MYSQL_PORT_3306_TCP_ADDR" -P"$MYSQL_PORT_3306_TCP_PORT" -uroot -p"$MYSQL_ENV_MYSQL_ROOT_PASSWORD"'`
 
     create database todos;
 
@@ -70,4 +70,6 @@ $GOOS 	$GOARCH
     echo 'FROM scratch:latest
     ADD go_ws /go_ws
     CMD [ "/go_ws" ]' > ${GOPATH}/bin/Dockerfile
-    docker build ${GOPATH}/bin/
+    docker build -t go_ws ${GOPATH}/bin/
+
+    docker run -d --link some-mysql:mysql -p 8080:8080 -e _ENV_MYSQL_HOST="MYSQL_PORT_3306_TCP_ADDR"  go_ws
