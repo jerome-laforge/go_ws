@@ -4,16 +4,33 @@ import "database/sql"
 import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jerome-laforge/go_ws/dto"
+	"os"
 	"time"
 )
 
-const (
-	addr   = "127.0.0.1:3306"
-	login  = "todos_rw"
-	passwd = "todos_rw"
-	db     = "todos"
-)
-const dbUrl = login + ":" + passwd + "@tcp(" + addr + ")/" + db + "?parseTime=true"
+var host = "127.0.0.1"
+var port = "3306"
+var login = "todos_rw"
+var passwd = "todos_rw"
+var db = "todos"
+
+var dbUrl string
+
+func init() {
+	if tmp := os.Getenv("MYSQL_HOST"); len(tmp) > 0 {
+		host = tmp
+	}
+	if tmp := os.Getenv("MYSQL_PORT"); len(tmp) > 0 {
+		port = tmp
+	}
+	if tmp := os.Getenv("MYSQL_LOGIN"); len(tmp) > 0 {
+		login = tmp
+	}
+	if tmp := os.Getenv("MYSQL_PASSWD"); len(tmp) > 0 {
+		passwd = tmp
+	}
+	dbUrl = login + ":" + passwd + "@tcp(" + host + ":" + port + ")/" + db + "?parseTime=true"
+}
 
 func RepoGetTodos() dto.Todos {
 	con, err := sql.Open("mysql", dbUrl)
@@ -69,7 +86,7 @@ func RepoDestroyTodo(id int) (dto.Todo, error) {
 	}
 	defer con.Close()
 
-	if todo, ok:= RepoFindTodo(id); ok {
+	if todo, ok := RepoFindTodo(id); ok {
 		_, err = con.Exec("delete from todos where id = ?", id)
 		if err != nil {
 			return todo, err
@@ -94,4 +111,3 @@ func RepoFindTodo(id int) (dto.Todo, bool) {
 
 	return *todo, true
 }
-

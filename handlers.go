@@ -3,14 +3,14 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	//dao "github.com/jerome-laforge/go_ws/test/dao"
+	dao "github.com/jerome-laforge/go_ws/dao"
 	"io"
 	"io/ioutil"
 	"net/http"
 	"strconv"
-	//dao "github.com/jerome-laforge/go_ws/test/dao"
-	dao "github.com/jerome-laforge/go_ws/dao"
-	"github.com/jerome-laforge/go_ws/dto"
 	"github.com/gorilla/mux"
+	"github.com/jerome-laforge/go_ws/dto"
 )
 
 func Index(w http.ResponseWriter, r *http.Request) {

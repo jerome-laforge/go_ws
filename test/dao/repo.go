@@ -2,9 +2,9 @@ package dao
 
 import (
 	"fmt"
+	"github.com/jerome-laforge/go_ws/dto"
 	"sync"
 	"time"
-	"github.com/jerome-laforge/go_ws/dto"
 )
 
 var currentId int = 0
