@@ -64,3 +64,11 @@ $GOOS 	$GOARCH
 -	solaris 	amd64
 -	windows 	386
 -	windows 	amd64
+-	
+#Create docker's image
+    echo "FROM scratch:latest
+    ADD go_ws /go_ws
+    CMD [ "/go_ws" ]" > ${GOPATH}/bin/Dockerfile
+
+`docker build ${GOPATH}/bin/`
+
