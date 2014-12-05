@@ -66,6 +66,7 @@ $GOOS 	$GOARCH
 -	windows 	amd64
 	
 #Create docker's image
+    go install github.com/jerome-laforge/go_ws
     echo "FROM scratch:latest
     ADD go_ws /go_ws
     CMD [ "/go_ws" ]" > ${GOPATH}/bin/Dockerfile
