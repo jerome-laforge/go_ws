@@ -67,7 +67,7 @@ $GOOS 	$GOARCH
 
 #Create docker's image
     go install github.com/jerome-laforge/go_ws
-    echo "FROM scratch:latest
+    echo 'FROM scratch:latest
     ADD go_ws /go_ws
-    CMD [ "/go_ws" ]" > ${GOPATH}/bin/Dockerfile
+    CMD [ "/go_ws" ]' > ${GOPATH}/bin/Dockerfile
     docker build ${GOPATH}/bin/
