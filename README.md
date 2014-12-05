@@ -70,6 +70,5 @@ $GOOS 	$GOARCH
     echo "FROM scratch:latest
     ADD go_ws /go_ws
     CMD [ "/go_ws" ]" > ${GOPATH}/bin/Dockerfile
-
-`docker build ${GOPATH}/bin/`
+    docker build ${GOPATH}/bin/
 
