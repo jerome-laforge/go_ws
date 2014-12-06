@@ -25,6 +25,10 @@ func (t *repo) RepoGetTodos() dto.Todos {
 	return t.todos
 }
 
+func (t *repo) Clear() {
+	t.todos = t.todos[:0]
+}
+
 func (t *repo) RepoFindTodo(id int) (dto.Todo, bool) {
 	t.lock.RLock()
 	defer t.lock.RUnlock()

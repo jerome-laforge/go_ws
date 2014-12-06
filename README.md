@@ -73,3 +73,8 @@ $GOOS 	$GOARCH
     docker build -t go_ws ${GOPATH}/bin/
 
     docker run -d --link some-mysql:mysql -p 8080:8080 -e _ENV_MYSQL_HOST="MYSQL_PORT_3306_TCP_ADDR"  go_ws
+
+#Unit Test
+    go test -cover
+    go test -coverprofile=/tmp/cover.out
+    go tool cover -html=/tmp/cover.out
