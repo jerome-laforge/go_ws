@@ -36,3 +36,10 @@ func TestIndex(t *testing.T) {
 		t.Fail()
 	}
 }
+
+func TestTodoIndex(_ *testing.T) {
+	test.FakeRepo.Clear()
+	test.FakeRepo.Init()
+	w := httptest.NewRecorder()
+	TodoIndex(w, nil)
+}

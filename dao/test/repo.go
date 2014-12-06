@@ -17,8 +17,12 @@ type repo struct {
 
 // Give us some seed data
 func init() {
-	FakeRepo.RepoCreateTodo(dto.Todo{Name: "Write presentation", Due: time.Now()})
-	FakeRepo.RepoCreateTodo(dto.Todo{Name: "Host meetup", Due: time.Date(2014, time.November, 13, 18, 30, 0, 0, time.UTC)})
+	FakeRepo.Init()
+}
+
+func (obj *repo) Init() {
+	obj.RepoCreateTodo(dto.Todo{Name: "Write presentation", Due: time.Now()})
+	obj.RepoCreateTodo(dto.Todo{Name: "Host meetup", Due: time.Date(2014, time.November, 13, 18, 30, 0, 0, time.UTC)})
 }
 
 func (obj *repo) RepoGetTodos() dto.Todos {
