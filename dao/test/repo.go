@@ -21,19 +21,19 @@ func init() {
 	FakeRepo.RepoCreateTodo(dto.Todo{Name: "Host meetup", Due: time.Date(2014, time.November, 13, 18, 30, 0, 0, time.UTC)})
 }
 
-func (t *repo) RepoGetTodos() dto.Todos {
-	return t.todos
+func (obj *repo) RepoGetTodos() dto.Todos {
+	return obj.todos
 }
 
-func (t *repo) Clear() {
-	t.todos = t.todos[:0]
+func (obj *repo) Clear() {
+	obj.todos = obj.todos[:0]
 }
 
-func (t *repo) RepoFindTodo(id int) (dto.Todo, bool) {
-	t.lock.RLock()
-	defer t.lock.RUnlock()
+func (obj *repo) RepoFindTodo(id int) (dto.Todo, bool) {
+	obj.lock.RLock()
+	defer obj.lock.RUnlock()
 
-	for _, t := range t.todos {
+	for _, t := range obj.todos {
 		if t.Id == id {
 			return t, true
 		}
