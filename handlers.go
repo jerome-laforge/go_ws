@@ -13,11 +13,7 @@ import (
 	"strconv"
 )
 
-var _dao dao.Repo = mysql.Repo
-
-func SetDao(dao dao.Repo) {
-	_dao = dao
-}
+var Dao dao.Repo = mysql.Repo
 
 func Index(w http.ResponseWriter, _ *http.Request) {
 	fmt.Fprint(w, "Welcome!\n")
@@ -26,7 +22,7 @@ func Index(w http.ResponseWriter, _ *http.Request) {
 func TodoIndex(w http.ResponseWriter, _ *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
-	if err := json.NewEncoder(w).Encode(_dao.RepoGetTodos()); err != nil {
+	if err := json.NewEncoder(w).Encode(Dao.RepoGetTodos()); err != nil {
 		panic(err)
 	}
 }
@@ -39,7 +35,7 @@ func TodoShow(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 
-	if todo, ok := _dao.RepoFindTodo(todoId); ok {
+	if todo, ok := Dao.RepoFindTodo(todoId); ok {
 		w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 		w.WriteHeader(http.StatusOK)
 		if err := json.NewEncoder(w).Encode(todo); err != nil {
@@ -80,7 +76,7 @@ func TodoCreate(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	t := _dao.RepoCreateTodo(todo)
+	t := Dao.RepoCreateTodo(todo)
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusCreated)
 	if err := json.NewEncoder(w).Encode(t); err != nil {
@@ -102,7 +98,7 @@ func TodoDelete(w http.ResponseWriter, r *http.Request) {
 			var todo dto.Todo
 			todoId, err := strconv.Atoi(sTodoId)
 			if err == nil {
-				todo, err = _dao.RepoDestroyTodo(todoId)
+				todo, err = Dao.RepoDestroyTodo(todoId)
 			}
 			if err != nil {
 				panic(err)
