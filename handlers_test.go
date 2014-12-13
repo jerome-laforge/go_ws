@@ -1,4 +1,4 @@
-package main
+package go_ws
 
 import (
 	"github.com/jerome-laforge/go_ws/dao/test"
