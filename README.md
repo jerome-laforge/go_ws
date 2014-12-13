@@ -72,3 +72,7 @@ $GOOS 	$GOARCH
     docker build -t go_ws ${GOPATH}/bin/
 
     docker run -d --link some-mysql:mysql -p 8080:8080 -e _ENV_MYSQL_HOST="MYSQL_PORT_3306_TCP_ADDR"  go_ws
+
+#Godoc extracts and generates documentation for Go programs
+    godoc -http :6060 -analysis type
+    http://127.0.0.1:6060/
