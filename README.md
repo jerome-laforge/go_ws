@@ -77,3 +77,7 @@ $GOOS 	$GOARCH
     go test -cover
     go test -coverprofile=/tmp/cover.out
     go tool cover -html=/tmp/cover.out
+
+#Godoc extracts and generates documentation for Go programs
+    godoc -http :6060 -analysis type
+    http://127.0.0.1:6060/
