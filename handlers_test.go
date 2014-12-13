@@ -9,7 +9,7 @@ import (
 )
 
 func init() {
-	SetDao(&test.FakeRepo)
+	Dao = &test.FakeRepo
 }
 
 func TestTodoCreate(t *testing.T) {
