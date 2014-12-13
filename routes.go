@@ -1,4 +1,4 @@
-package main
+package go_ws
 
 import "net/http"
 
