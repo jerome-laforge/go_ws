@@ -56,7 +56,7 @@ func TodoShow(w http.ResponseWriter, r *http.Request) {
 /*
 Test with this curl command:
 
-curl -H "Content-Type: application/json" -d '{"name":"New Todo"}' http://localhost:8080/todos
+curl -H "Content-Type: application/json" -d '{"name":"My first todo"}' http://localhost:8080/todos
 
 */
 func TodoCreate(w http.ResponseWriter, r *http.Request) {
