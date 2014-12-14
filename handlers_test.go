@@ -31,6 +31,25 @@ func TestTodoCreate(t *testing.T) {
 	}
 }
 
+func TestTodoCreateBad(t *testing.T) {
+	test.FakeRepo.Clear()
+	if len(test.FakeRepo.RepoGetTodos()) != 0 {
+		t.Fatalf("repository is not empty")
+	}
+	r, err := http.NewRequest("POST", "/todos", strings.NewReader(`{"name":"New Todo 0"`))
+	if err != nil {
+		t.Fatal(err)
+	}
+	w := httptest.NewRecorder()
+	TodoCreate(w, r)
+	if w.Code != 422 {
+		t.Fatalf("Bad status code [expected: %d] [actual: %d]", 422, w.Code)
+	}
+	if len(test.FakeRepo.RepoGetTodos()) != 1 {
+		t.Fatalf("repository length incositency")
+	}
+}
+
 func TestIndex(t *testing.T) {
 	test.FakeRepo.Clear()
 	w := httptest.NewRecorder()
