@@ -23,6 +23,9 @@ func TestTodoCreate(t *testing.T) {
 	}
 	w := httptest.NewRecorder()
 	TodoCreate(w, r)
+	if w.Code != http.StatusCreated {
+		t.Fatalf("Bad status code [expected: %d] [actual: %d]", http.StatusCreated, w.Code)
+	}
 	if len(test.FakeRepo.RepoGetTodos()) != 1 {
 		t.Fatalf("repository length incositency")
 	}
