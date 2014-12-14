@@ -3,11 +3,12 @@ go_ws
 
 This project is for testing purpose with WS/REST/JSON and golang.
 
-#To download this project and its dependencies :
+#Installation :
 Do steps below :
-- to set your `GOPATH` env (for example : `mkdir -p ~/go/go_ws; export GOPATH=~/go/go_ws; export PATH=${GOPATH}/bin:${PATH}`)
+- to set your `GOPATH` env (for example : `mkdir -p ~/go/; export GOPATH=~/go/; export PATH=${GOPATH}/bin:${PATH}`)
 - to set `http_proxy` (if you are behing proxy)
 - `go get github.com/jerome-laforge/go_ws`
+- `cd ${GOPATH}/src/github.com/jerome-laforge/go_ws; godep restore; cd -`
 
 #If MySQL not install, download it with docker for example:
     docker pull mysql
