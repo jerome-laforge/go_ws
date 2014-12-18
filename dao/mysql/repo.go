@@ -13,6 +13,7 @@ var Repo repo
 
 type repo struct {
 	dbUrl string
+	db    *sql.DB
 }
 
 func init() {
@@ -40,16 +41,16 @@ func init() {
 	}
 	Repo.dbUrl = login + ":" + passwd + "@tcp(" + host + ":" + port + ")/" + db + "?parseTime=true"
 	fmt.Println(Repo.dbUrl)
-}
 
-func (obj repo) RepoGetTodos() dto.Todos {
-	con, err := sql.Open("mysql", obj.dbUrl)
+	var err error
+	Repo.db, err = sql.Open("mysql", Repo.dbUrl)
 	if err != nil {
 		panic(err.Error())
 	}
-	defer con.Close()
+}
 
-	rows, err := con.Query("select id, name, completed, due from todos")
+func (obj repo) RepoGetTodos() dto.Todos {
+	rows, err := obj.db.Query("select id, name, completed, due from todos")
 	if err != nil {
 		panic(err.Error())
 	}
@@ -67,17 +68,11 @@ func (obj repo) RepoGetTodos() dto.Todos {
 }
 
 func (obj repo) RepoCreateTodo(t dto.Todo) dto.Todo {
-	con, err := sql.Open("mysql", obj.dbUrl)
-	if err != nil {
-		panic(err.Error())
-	}
-	defer con.Close()
-
 	if t.Due.IsZero() {
 		t.Due = time.Now().Add(7 * 24 * time.Hour)
 	}
 
-	res, err := con.Exec("insert into todos (name, completed, due) values (?, ?, ?)", t.Name, t.Completed, t.Due)
+	res, err := obj.db.Exec("insert into todos (name, completed, due) values (?, ?, ?)", t.Name, t.Completed, t.Due)
 	if err != nil {
 		panic(err)
 	}
@@ -90,14 +85,8 @@ func (obj repo) RepoCreateTodo(t dto.Todo) dto.Todo {
 }
 
 func (obj repo) RepoDestroyTodo(id int) (dto.Todo, error) {
-	con, err := sql.Open("mysql", obj.dbUrl)
-	if err != nil {
-		panic(err.Error())
-	}
-	defer con.Close()
-
 	if todo, ok := obj.RepoFindTodo(id); ok {
-		_, err = con.Exec("delete from todos where id = ?", id)
+		_, err := obj.db.Exec("delete from todos where id = ?", id)
 		if err != nil {
 			return todo, err
 		}
@@ -106,15 +95,9 @@ func (obj repo) RepoDestroyTodo(id int) (dto.Todo, error) {
 }
 
 func (obj repo) RepoFindTodo(id int) (dto.Todo, bool) {
-	con, err := sql.Open("mysql", obj.dbUrl)
-	if err != nil {
-		panic(err.Error())
-	}
-	defer con.Close()
-
 	todo := new(dto.Todo)
-	row := con.QueryRow("select id, name, completed, due from todos where id = ?", id)
-	err = row.Scan(&todo.Id, &todo.Name, &todo.Completed, &todo.Due)
+	row := obj.db.QueryRow("select id, name, completed, due from todos where id = ?", id)
+	err := row.Scan(&todo.Id, &todo.Name, &todo.Completed, &todo.Due)
 	if err != nil {
 		return *todo, false
 	}
