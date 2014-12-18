@@ -1,9 +1,9 @@
 package main
 
 import (
+	"github.com/jerome-laforge/go_ws"
 	"log"
 	"net/http"
-	"github.com/jerome-laforge/go_ws"
 )
 
 func main() {
