@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="gows" basedir=".">
+	<property file="setEnv.properties"/>
+	<property name="PROP_GOPATH" value="${basedir}/${_GOPATH}"/>
+
+	<target name="build" depends="format, test">
+		<exec executable="go" logerror="true">
+			<env key="GOPATH" value="${PROP_GOPATH}"/>
+			<env key="GOOS" value="${GOOS}"/>
+			<env key="GOARCH" value="${GOARCH}"/>
+			<arg value="build"/>
+			<arg value="-o"/>
+			<arg value="${basedir}/build/${OUTPUT_BIN}.bin"/>
+			<arg value="${MAIN_FILE}"/>
+		</exec>
+	</target>
+
+	<target name="build_race_detector" depends="format, test">
+		<exec executable="go" logerror="true">
+			<env key="GOPATH" value="${PROP_GOPATH}"/>
+			<env key="GOOS" value="${GOOS}"/>
+			<env key="GOARCH" value="${GOARCH}"/>
+			<arg value="build"/>
+			<arg value="-race"/>
+			<arg value="-o"/>
+			<arg value="${basedir}/build/${OUTPUT_BIN}.bin.race.detector"/>
+			<arg value="${MAIN_FILE}"/>
+		</exec>
+	</target>
+
+	<target name="clean">
+		<delete dir="build" quiet="true"/>
+	</target>
+
+	<target name="format">
+		<apply executable="go" logerror="true" parallel="false">
+			<env key="GOPATH" value="${PROP_GOPATH}"/>
+			<arg value="fmt"/>
+			<fileset dir="${basedir}">
+				<filename name="**/*.go"/>
+				<not>
+					<filename name="Godeps/**"/>
+				</not>
+			</fileset>
+		</apply>
+	</target>
+
+	<target name="test" depends="format">
+		<exec executable="go" failonerror="true" logerror="true">
+			<env key="GOPATH" value="${PROP_GOPATH}"/>
+			<arg value="test"/>
+			<arg value="./..."/>
+		</exec>
+	</target>
+</project>
