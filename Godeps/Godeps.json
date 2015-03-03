@@ -1,6 +1,9 @@
 {
 	"ImportPath": "github.com/jerome-laforge/go_ws",
 	"GoVersion": "go1.3.3",
+	"Packages": [
+		"./..."
+	],
 	"Deps": [
 		{
 			"ImportPath": "github.com/go-sql-driver/mysql",

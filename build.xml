@@ -19,13 +19,22 @@
 	</target>
 
 	<target name="godep_save" depends="godep_install">
-		<exec executable="${PROP_GOPATH}/bin/godep">
+		<exec executable="${PROP_GOPATH}/bin/godep" dir="${basedir}">
 			<env key="GOPATH" value="${PROP_GOPATH}"/>
 			<arg value="save"/>
+			<arg value="./..."/>
 		</exec>
 	</target>
 
-	<target name="build" depends="format, test">
+	<target name="godep_update" depends="godep_install">
+		<exec executable="${PROP_GOPATH}/bin/godep" dir="${basedir}">
+			<env key="GOPATH" value="${PROP_GOPATH}"/>
+			<arg value="update"/>
+			<arg value="..."/>
+		</exec>
+	</target>
+
+	<target name="build" depends="format, godep_restore, test">
 		<exec executable="go" logerror="true">
 			<env key="GOPATH" value="${PROP_GOPATH}"/>
 			<env key="GOOS" value="${GOOS}"/>
@@ -37,7 +46,7 @@
 		</exec>
 	</target>
 
-	<target name="build_race_detector" depends="format, test">
+	<target name="build_race_detector" depends="format, godep_restore, test">
 		<exec executable="go" logerror="true">
 			<env key="GOPATH" value="${PROP_GOPATH}"/>
 			<env key="GOOS" value="${GOOS}"/>
@@ -67,7 +76,7 @@
 		</apply>
 	</target>
 
-	<target name="test" depends="format">
+	<target name="test" depends="format, godep_restore">
 		<exec executable="go" failonerror="true" logerror="true">
 			<env key="GOPATH" value="${PROP_GOPATH}"/>
 			<arg value="test"/>
