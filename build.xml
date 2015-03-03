@@ -3,6 +3,28 @@
 	<property file="setEnv.properties"/>
 	<property name="PROP_GOPATH" value="${basedir}/${_GOPATH}"/>
 
+	<target name="godep_install">
+		<exec executable="go" logerror="true">
+			<env key="GOPATH" value="${PROP_GOPATH}"/>
+			<arg value="get"/>
+			<arg value="github.com/tools/godep"/>
+		</exec>
+	</target>
+
+	<target name="godep_restore" depends="godep_install">
+		<exec executable="${PROP_GOPATH}/bin/godep">
+			<env key="GOPATH" value="${PROP_GOPATH}"/>
+			<arg value="restore"/>
+		</exec>
+	</target>
+
+	<target name="godep_save" depends="godep_install">
+		<exec executable="${PROP_GOPATH}/bin/godep">
+			<env key="GOPATH" value="${PROP_GOPATH}"/>
+			<arg value="save"/>
+		</exec>
+	</target>
+
 	<target name="build" depends="format, test">
 		<exec executable="go" logerror="true">
 			<env key="GOPATH" value="${PROP_GOPATH}"/>
